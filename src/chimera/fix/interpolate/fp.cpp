@@ -31,7 +31,7 @@ namespace Chimera {
     }
 
     // This is the FP node data to copy and interpolate.
-    #define NODES_PER_BUFFER 256
+    #define NODES_PER_BUFFER 128
     static FirstPersonNode fp_buffers[2][NODES_PER_BUFFER] = {};
 
     // These are pointers to each buffer. These swap every tick.
