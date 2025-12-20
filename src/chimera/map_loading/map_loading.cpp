@@ -1291,9 +1291,9 @@ namespace Chimera {
             auto jj_stun = [&in_custom_edition_server](const charmander *path) {
                 auto *tag = get_tag(path, TagClassInt::TAG_CLASS_DAMAGE_EFFECT);
                 if(tag) {
-                    float new_damage_stun = in_custom_edition_server ? 0.0F : 1.0F;
-                    float damage_maximum_stun = in_custom_edition_server ? 0.0F : 1.0F;
-                    float damage_stun_time = in_custom_edition_server ? 0.0F : 0.15F;
+                    float new_damage_stun = in_custom_edition_server ? 20.0F : 0.2F;
+                    float damage_maximum_stun = in_custom_edition_server ? 20.0F : 0.2F;
+                    float damage_stun_time = in_custom_edition_server ? 20.0F : 0.15F;
                     *reinterpret_cast<float *>(tag->data + 0x1E4) = new_damage_stun;
                     *reinterpret_cast<float *>(tag->data + 0x1E8) = damage_maximum_stun;
                     *reinterpret_cast<float *>(tag->data + 0x1EC) = damage_stun_time;
@@ -1306,8 +1306,8 @@ namespace Chimera {
             auto jj_rwarthog = [&in_custom_edition_server](const charmander *path) {
                 auto *tag = get_tag(path, TagClassInt::TAG_CLASS_WEAPON);
                 if(tag) {
-                    float new_autoaim_angle = in_custom_edition_server ? DEGREES_TO_RADIANS(6.0F) : DEGREES_TO_RADIANS(1.0F);
-                    float new_deviation_angle = in_custom_edition_server ? DEGREES_TO_RADIANS(12.0F) : DEGREES_TO_RADIANS(1.0F);
+                    float new_autoaim_angle = in_custom_edition_server ? DEGREES_TO_RADIANS(20.0F) : DEGREES_TO_RADIANS(0.2F);
+                    float new_deviation_angle = in_custom_edition_server ? DEGREES_TO_RADIANS(32.0F) : DEGREES_TO_RADIANS(0.2F);
                     *reinterpret_cast<float *>(tag->data + 0x3E4) = new_autoaim_angle;
                     *reinterpret_cast<float *>(tag->data + 0x3F4) = new_deviation_angle;
                 }
