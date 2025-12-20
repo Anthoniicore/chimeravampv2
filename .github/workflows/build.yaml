@@ -19,7 +19,7 @@ jobs:
           sudo apt-get install -y software-properties-common gnupg build-essential mingw-w64 cmake python3 p7zip-full curl git zstd
 
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # needed to generate a valid build number
 
@@ -70,7 +70,7 @@ jobs:
       # Upload an artifact if building an untagged commit
       - name: "Upload artifact"
         if: "!startsWith(github.ref, 'refs/tags/')"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: chimera-${{ steps.package.outputs.SHA }}
           path: ./chimera.7z
