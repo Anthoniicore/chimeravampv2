@@ -6,6 +6,7 @@
 #include "../halo_data/table.h"
 #include "../halo_data/object.hpp"
 #include "../hooks/tick.h"
+#include "fix/bullet_magnetism_fix.hpp"
 
 static bool bullet_magnetism_enabled = false;
 static float magnetism_angle = 5.0f; // grados de tolerancia
@@ -73,3 +74,4 @@ ChimeraCommandError bullet_magnetism_command(size_t argc, const char **argv) noe
     console_out(bullet_magnetism_enabled ? "true" : "false");
     return CHIMERA_COMMAND_ERROR_SUCCESS;
 }
+
