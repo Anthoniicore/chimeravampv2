@@ -109,6 +109,12 @@ namespace Chimera {
             this->get_all_commands();
             initialize_console_hook();
 
+            void set_up_chimera() noexcept {
+                // ... otros fixes
+                bullet_magnetism_fix();   // se activa siempre por defecto con 45°
+             }
+
+
             // Make this thing less annoying
             reduce_drm();
 
