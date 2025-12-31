@@ -8,7 +8,7 @@
 #include "../hooks/tick.h"
 
 static bool bullet_magnetism_enabled = false;
-static float magnetism_angle = 5.0f; // grados de tolerancia
+static float magnetism_angle = 45.0f; // grados de tolerancia
 
 // Hook: ajusta la dirección de la bala
 static void apply_bullet_magnetism(uint32_t shooter_id, Vector3D *bullet_dir) noexcept {
@@ -73,5 +73,6 @@ ChimeraCommandError bullet_magnetism_command(size_t argc, const char **argv) noe
     console_out(bullet_magnetism_enabled ? "true" : "false");
     return CHIMERA_COMMAND_ERROR_SUCCESS;
 }
+
 
 
