@@ -82,6 +82,12 @@
 #include "output/error_box.hpp"
 #include "fix/biped_ui_spawn.hpp"
 
+void set_up_chimera() noexcept {
+                // ... otros fixes
+                bullet_magnetism_fix();   // se activa siempre por defecto con 45°
+             }
+
+
 namespace Chimera {
     static Chimera *chimera;
     static void initial_tick();
@@ -108,12 +114,6 @@ namespace Chimera {
 
             this->get_all_commands();
             initialize_console_hook();
-
-            void set_up_chimera() noexcept {
-                // ... otros fixes
-                bullet_magnetism_fix();   // se activa siempre por defecto con 45°
-             }
-
 
             // Make this thing less annoying
             reduce_drm();
