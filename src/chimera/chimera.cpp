@@ -84,10 +84,12 @@
 #include "fix/bullet_magnetism_fix.hpp"
 
 
-void set_up_chimera() noexcept {
-                // ... otros fixes
-                bullet_magnetism_fix();   // se activa siempre por defecto con 45°
-             }
+void set_up_chimera() {
+    // ...
+    Chimera::bullet_magnetism_fix();   // se activa siempre por defecto con 45°
+    // ...
+}
+
 
 
 namespace Chimera {
