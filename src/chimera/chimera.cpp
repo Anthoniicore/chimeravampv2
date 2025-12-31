@@ -81,10 +81,7 @@
 #include "annoyance/exception_dialog.hpp"
 #include "output/error_box.hpp"
 #include "fix/biped_ui_spawn.hpp"
-#include "fix/bullet_magnetism_fix.hpp"
 
-
-register_command("bullet_magnetism", bullet_magnetism_command);
 namespace Chimera {
     static Chimera *chimera;
     static void initial_tick();
