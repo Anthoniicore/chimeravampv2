@@ -17,6 +17,7 @@ namespace Chimera {
         this->original_bytes.clear();
     }
 
+    namespace Chimera { Signature bullet_magnetism_sig( "bullet_magnetism_sig", { {0x90, 0x90, 0x90, 0x90, 0x90, 0x90, -1, -1} } ); }
     // Get the bytes to the instruction(s) at the given address. I'll modify this as more types of instructions are needed.
     void get_instructions(const std::byte *at_start, std::vector<std::byte> &bytes, std::vector<std::uintptr_t> &offsets, std::size_t minimum_size = 1) {
         offsets.clear();
