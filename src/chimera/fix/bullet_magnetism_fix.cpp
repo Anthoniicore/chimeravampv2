@@ -8,7 +8,6 @@
 #include "../command/command.hpp"
 #include "../output/output.hpp"
 #include "../chimera.hpp"
-#include "fix/bullet_magnetism_fix.hpp"
 #include <cmath>
 
 namespace Chimera {
@@ -89,4 +88,5 @@ namespace Chimera {
         return true;
     }
 } // namespace Chimera
+
 
