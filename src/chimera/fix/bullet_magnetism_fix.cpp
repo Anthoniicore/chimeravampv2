@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #include "bullet_magnetism_fix.hpp"
-#include "../client_signature.h"
+#include "../signature/signature.hpp"
 #include "../messaging/messaging.h"
 #include "../halo_data/table.h"
 #include "../halo_data/object.hpp"
@@ -75,3 +75,4 @@ namespace Chimera {
         return true;
     }
 }
+
