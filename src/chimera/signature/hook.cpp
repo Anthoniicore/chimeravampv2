@@ -17,7 +17,20 @@ namespace Chimera {
         this->original_bytes.clear();
     }
 
-    namespace Chimera { Signature bullet_magnetism_sig( "bullet_magnetism_sig", { {0x90, 0x90, 0x90, 0x90, 0x90, 0x90, -1, -1} } ); }
+    namespace Chimera {
+    static const SigByte bullet_magnetism_pattern[] = {
+        0x90, 0x90, 0x90, 0x90, 0x90, 0x90, -1, -1
+    };
+
+    Signature bullet_magnetism_sig(
+        "bullet_magnetism_sig",                         // nombre interno
+        "Bullet magnetism fix",                         // descripción/feature
+        bullet_magnetism_pattern,                       // puntero al array de bytes
+        sizeof(bullet_magnetism_pattern) / sizeof(SigByte), // longitud del patrón
+        1                                               // número de coincidencia
+    );
+}
+
     // Get the bytes to the instruction(s) at the given address. I'll modify this as more types of instructions are needed.
     void get_instructions(const std::byte *at_start, std::vector<std::byte> &bytes, std::vector<std::uintptr_t> &offsets, std::size_t minimum_size = 1) {
         offsets.clear();
