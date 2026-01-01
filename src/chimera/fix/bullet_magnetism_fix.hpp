@@ -6,5 +6,7 @@
 
 namespace Chimera {
     bool bullet_magnetism_command(int argc, const char **argv) noexcept;
-    void bullet_magnetism_fix();
+    void bullet_magnetism_fix() noexcept;
+
 }
+
