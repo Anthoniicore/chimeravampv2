@@ -57,10 +57,11 @@ namespace Chimera {
         *bullet_dir = best_dir;
     }
 
-    void bullet_magnetism_fix() noexcept {
+void bullet_magnetism_fix() noexcept {
     static Hook bullet_hook;
+    auto *addr = get_chimera().get_signature("bullet_magnetism_sig").data();
     write_function_override(
-        bullet_magnetism_sig.address(),
+        addr,
         bullet_hook,
         apply_bullet_magnetism,
         nullptr
@@ -75,7 +76,8 @@ bool bullet_magnetism_command(int argc, const char **argv) noexcept {
             if(new_value) {
                 bullet_magnetism_fix();
             } else {
-                bullet_magnetism_sig.undo();
+                static Hook bullet_hook;
+                bullet_hook.rollback();
             }
             bullet_magnetism_enabled = new_value;
         }
@@ -83,5 +85,8 @@ bool bullet_magnetism_command(int argc, const char **argv) noexcept {
     console_output(BOOL_TO_STR(bullet_magnetism_enabled));
     return true;
 }
+} // <- cierre de namespace Chimera
+
+
 
 
