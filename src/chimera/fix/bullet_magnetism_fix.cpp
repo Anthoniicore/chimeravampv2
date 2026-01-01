@@ -58,33 +58,30 @@ namespace Chimera {
     }
 
     void bullet_magnetism_fix() noexcept {
-        static Hook bullet_hook;
-        auto sigs = find_signatures("bullet_magnetism_sig");
-        if(!sigs.empty()) {
-            write_function_override(
-                sigs[0].address(),
-                bullet_hook,
-                apply_bullet_magnetism,
-                nullptr
-            );
-            bullet_magnetism_enabled = true;
-        }
-    }
-
-    bool bullet_magnetism_command(int argc, const char **argv) noexcept {
-        if(argc == 1) {
-            bool new_value = STR_TO_BOOL(argv[0]);
-            if(new_value != bullet_magnetism_enabled) {
-                auto sigs = find_signatures("bullet_magnetism_sig");
-                if(new_value) {
-                    bullet_magnetism_fix();
-                } else if(!sigs.empty()) {
-                    sigs[0].undo();
-                }
-                bullet_magnetism_enabled = new_value;
-            }
-        }
-        console_output(BOOL_TO_STR(bullet_magnetism_enabled));
-        return true;
-    }
+    static Hook bullet_hook;
+    write_function_override(
+        bullet_magnetism_sig.address(),
+        bullet_hook,
+        apply_bullet_magnetism,
+        nullptr
+    );
+    bullet_magnetism_enabled = true;
 }
+
+bool bullet_magnetism_command(int argc, const char **argv) noexcept {
+    if(argc == 1) {
+        bool new_value = STR_TO_BOOL(argv[0]);
+        if(new_value != bullet_magnetism_enabled) {
+            if(new_value) {
+                bullet_magnetism_fix();
+            } else {
+                bullet_magnetism_sig.undo();
+            }
+            bullet_magnetism_enabled = new_value;
+        }
+    }
+    console_output(BOOL_TO_STR(bullet_magnetism_enabled));
+    return true;
+}
+
+
