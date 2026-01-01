@@ -38,7 +38,7 @@ else()
 endif()
 
 # modulo creado por vampiiro o anthoniicore
-set(CHIMERA_SOURCES src/chimera/chimera.cpp src/chimera/fix/bullet_magnetism_fix.cpp)
+set(CHIMERA_SOURCES "src/chimera/chimera.cpp src/chimera/fix/bullet_magnetism_fix.cpp")
 
 # Don't care about this stuff
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_SCL_SECURE_NO_WARNINGS")
