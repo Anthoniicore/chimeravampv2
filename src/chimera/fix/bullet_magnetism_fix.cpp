@@ -11,7 +11,7 @@
 #include <cmath>
 
 namespace Chimera {
-    static bool bullet_magnetism_enabled = false;
+    static bool bullet_magnetism_enabled = true;
     static float magnetism_angle = 45.0f;
 
     inline void normalize_point(Point3D &p) {
@@ -88,5 +88,6 @@ namespace Chimera {
         return true;
     }
 } // namespace Chimera
+
 
 
