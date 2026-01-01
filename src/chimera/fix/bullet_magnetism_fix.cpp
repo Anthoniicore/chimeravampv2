@@ -2,7 +2,7 @@
 
 #include "bullet_magnetism_fix.hpp"
 #include "../signature/signature.hpp"
-#include "../halo_data/table.h"
+#include "../halo_data/table.hpp"
 #include "../halo_data/object.hpp"
 #include "../hooks/tick.h"
 #include "../command/command.hpp"
@@ -74,5 +74,6 @@ namespace Chimera {
         return true;
     }
 }
+
 
 
