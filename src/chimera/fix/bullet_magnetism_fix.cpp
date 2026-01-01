@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #include "bullet_magnetism_fix.hpp"
-//#include "../signature/codecave.hpp"
+#include "../signature/hook.hpp"
 #include "../halo_data/table.hpp"
 #include "../halo_data/object.hpp"
-//#include "../math/vector_math.hpp"
-//#include "../types/types.hpp"
+#include "../vector/vector.hpp"
+#include "../types/types.hpp"
 #include "../command/command.hpp"
 #include "../output/output.hpp"
-#include "../signature/hook.hpp" 
+#include <cmath>
 
 namespace Chimera {
     static bool bullet_magnetism_enabled = false;
@@ -21,10 +21,10 @@ namespace Chimera {
         auto *shooter = ot.get_dynamic_object(shooter_id);
         if(!shooter) return;
 
-        float best_dot = cosf(magnetism_angle * (3.14159f / 180.0f));
+        float best_dot = std::cos(magnetism_angle * (3.14159f / 180.0f));
         Vector3D best_dir = *bullet_dir;
 
-        for(auto &obj : ot.get_objects()) {
+        for(auto &obj : ot) {
             if(!obj.is_valid()) continue;
             if(obj.object_id == shooter_id) continue;
 
@@ -71,5 +71,3 @@ namespace Chimera {
         return true;
     }
 }
-
-
