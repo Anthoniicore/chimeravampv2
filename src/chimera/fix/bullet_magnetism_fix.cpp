@@ -4,8 +4,8 @@
 //#include "../signature/codecave.hpp"
 #include "../halo_data/table.hpp"
 #include "../halo_data/object.hpp"
-#include "../math/vector_math.hpp"
-#include "../types/types.hpp"
+//#include "../math/vector_math.hpp"
+//#include "../types/types.hpp"
 #include "../command/command.hpp"
 #include "../output/output.hpp"
 #include "../signature/hook.hpp" 
@@ -71,4 +71,5 @@ namespace Chimera {
         return true;
     }
 }
+
 
