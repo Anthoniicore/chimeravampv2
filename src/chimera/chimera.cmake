@@ -36,8 +36,6 @@ else()
     )
 endif()
 
-)
-
 # Define the source files
 add_library(chimera STATIC
     ${WINXP_COMPATIBILITY_FILES}
