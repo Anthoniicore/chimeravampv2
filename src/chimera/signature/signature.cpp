@@ -11,7 +11,7 @@ namespace Chimera {
     // ⚠️ IMPORTANTE: Estos son solo placeholders. Debes reemplazarlos con los bytes reales
     // extraídos de haloce.exe 1.10 usando IDA/Ghidra/x64dbg.
     static const SigByte bullet_magnetism_pattern[] = {
-        0x90, 0x90, 0x90, 0x90, 0x90, 0x90, -1, -1
+        0x20, 0x14, 0x458, -1, -1
     };
 
     Signature bullet_magnetism_sig(
