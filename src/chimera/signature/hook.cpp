@@ -19,7 +19,7 @@ namespace Chimera {
 
     namespace Chimera {
     static const SigByte bullet_magnetism_pattern[] = {
-        0x20, 0x14, 0x458, -1, -1
+        0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, -1, -1
     };
 
     Signature bullet_magnetism_sig(
