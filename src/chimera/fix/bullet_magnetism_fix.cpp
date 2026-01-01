@@ -1,18 +1,19 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 #include "bullet_magnetism_fix.hpp"
-#include "../signature/signature.hpp"
+#include "../signature/codecave.hpp"
 #include "../halo_data/table.hpp"
 #include "../halo_data/object.hpp"
-#include "../signature/hook.hpp" 
+#include "../math/vector_math.hpp"
+#include "../types/types.hpp"
 #include "../command/command.hpp"
 #include "../output/output.hpp"
+#include "../signature/hook.hpp" 
 
 namespace Chimera {
     static bool bullet_magnetism_enabled = false;
-    static float magnetism_angle = 45.0f; // grados de tolerancia
+    static float magnetism_angle = 45.0f;
 
-    // Hook: ajusta la dirección de la bala
     static void apply_bullet_magnetism(uint32_t shooter_id, Vector3D *bullet_dir) noexcept {
         if(!bullet_magnetism_enabled) return;
 
@@ -23,7 +24,7 @@ namespace Chimera {
         float best_dot = cosf(magnetism_angle * (3.14159f / 180.0f));
         Vector3D best_dir = *bullet_dir;
 
-        for(auto &obj : ot.objects) {
+        for(auto &obj : ot.get_objects()) {
             if(!obj.is_valid()) continue;
             if(obj.object_id == shooter_id) continue;
 
@@ -40,11 +41,8 @@ namespace Chimera {
         *bullet_dir = best_dir;
     }
 
-    // Activa el fix
     void bullet_magnetism_fix() noexcept {
         auto *addr = get_signature("bullet_magnetism_sig").address();
-
-        // Crear codecave que llama a apply_bullet_magnetism
         static BasicCodecave bullet_code(apply_bullet_magnetism);
 
         DWORD old_protect;
@@ -57,7 +55,6 @@ namespace Chimera {
         bullet_magnetism_enabled = true;
     }
 
-    // Comando de consola
     bool bullet_magnetism_command(int argc, const char **argv) noexcept {
         if(argc == 1) {
             bool new_value = STR_TO_BOOL(argv[0]);
@@ -74,8 +71,3 @@ namespace Chimera {
         return true;
     }
 }
-
-
-
-
-
