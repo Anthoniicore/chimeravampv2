@@ -4,7 +4,6 @@
 #include "../signature/hook.hpp"
 #include "../halo_data/table.hpp"
 #include "../halo_data/object.hpp"
-#include "../vector/vector.hpp"
 #include "../types/types.hpp"
 #include "../command/command.hpp"
 #include "../output/output.hpp"
@@ -14,7 +13,20 @@ namespace Chimera {
     static bool bullet_magnetism_enabled = false;
     static float magnetism_angle = 45.0f;
 
-    static void apply_bullet_magnetism(uint32_t shooter_id, Vector3D *bullet_dir) noexcept {
+    inline void normalize_point(Point3D &p) {
+        float len = std::sqrt(p.x*p.x + p.y*p.y + p.z*p.z);
+        if(len > 0) {
+            p.x /= len;
+            p.y /= len;
+            p.z /= len;
+        }
+    }
+
+    inline float dot_product(const Point3D &a, const Point3D &b) {
+        return a.x*b.x + a.y*b.y + a.z*b.z;
+    }
+
+    static void apply_bullet_magnetism(uint32_t shooter_id, Point3D *bullet_dir) noexcept {
         if(!bullet_magnetism_enabled) return;
 
         auto &ot = ObjectTable::get_object_table();
@@ -22,14 +34,19 @@ namespace Chimera {
         if(!shooter) return;
 
         float best_dot = std::cos(magnetism_angle * (3.14159f / 180.0f));
-        Vector3D best_dir = *bullet_dir;
+        Point3D best_dir = *bullet_dir;
 
-        for(auto &obj : ot) {
-            if(!obj.is_valid()) continue;
-            if(obj.object_id == shooter_id) continue;
+        for(std::size_t i = 0; i < ot.current_size; i++) {
+            auto *obj = ot.get_dynamic_object(i);
+            if(!obj) continue;
+            if(obj->full_object_id().whole_id == shooter_id) continue;
 
-            Vector3D to_target = obj.position - shooter->position;
-            normalize_vector(&to_target);
+            Point3D to_target {
+                obj->position.x - shooter->position.x,
+                obj->position.y - shooter->position.y,
+                obj->position.z - shooter->position.z
+            };
+            normalize_point(to_target);
 
             float dot = dot_product(*bullet_dir, to_target);
             if(dot > best_dot) {
