@@ -4,7 +4,6 @@
 #include "../signature/signature.hpp"
 
 namespace Chimera {
-    // Declaración de la firma para el fix de bullet magnetism
-    extern Signature bullet_magnetism_sig;
+    void bullet_magnetism_fix() noexcept;
+    bool bullet_magnetism_command(int argc, const char **argv) noexcept;
 }
-
