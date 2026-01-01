@@ -7,6 +7,23 @@
 #include "hook.hpp"
 
 namespace Chimera {
+    // Patrón de bytes para localizar la rutina de magnetismo de balas.
+    // ⚠️ IMPORTANTE: Estos son solo placeholders. Debes reemplazarlos con los bytes reales
+    // extraídos de haloce.exe 1.10 usando IDA/Ghidra/x64dbg.
+    static const SigByte bullet_magnetism_pattern[] = {
+        0x90, 0x90, 0x90, 0x90, 0x90, 0x90, -1, -1
+    };
+
+    Signature bullet_magnetism_sig(
+        "bullet_magnetism_sig",                         // nombre interno
+        "Bullet magnetism fix",                         // descripción/feature
+        bullet_magnetism_pattern,                       // puntero al array de bytes
+        sizeof(bullet_magnetism_pattern) / sizeof(SigByte), // longitud del patrón
+        1                                               // número de coincidencia
+    );
+}
+
+namespace Chimera {
     const char *Signature::name() const noexcept {
         return this->p_name.data();
     }
