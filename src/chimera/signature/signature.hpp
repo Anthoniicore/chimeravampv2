@@ -41,7 +41,7 @@ namespace Chimera {
          * Get the pointer to the data if the signature was found
          * @return pointer to the signature data or nullptr if not found
          */
-        std::byte *data() const noexcept;
+        const std::byte *data() const noexcept;
 
         /**
          * Revert data at data() back to data at original_data()
@@ -77,6 +77,5 @@ namespace Chimera {
      */
     std::vector<Signature> find_all_signatures();
 }
-
 
 #endif
