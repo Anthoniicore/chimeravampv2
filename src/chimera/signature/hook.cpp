@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
-
 #include <windows.h>
 #include <iostream>
 #include <cstring>
 #include <string>
-
 #include "signature.hpp"
 #include "hook.hpp"
 
@@ -27,6 +25,15 @@ namespace Chimera {
         1  // 1 coincidencia
     );
 }
+namespace Chimera {
+    void Hook::rollback() noexcept {
+        if(this->original_bytes.size() == 0) {
+            return;
+        }
+        overwrite(this->address, this->original_bytes.data(), this->original_bytes.size());
+        this->original_bytes.clear();
+    }
+
     // Get the bytes to the instruction(s) at the given address. I'll modify this as more types of instructions are needed.
     void get_instructions(const std::byte *at_start, std::vector<std::byte> &bytes, std::vector<std::uintptr_t> &offsets, std::size_t minimum_size = 1) {
         offsets.clear();
