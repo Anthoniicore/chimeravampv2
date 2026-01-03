@@ -8,29 +8,25 @@
 #include "signature.hpp"
 #include "hook.hpp"
 
+
 namespace Chimera {
-    void Hook::rollback() noexcept {
-        if(this->original_bytes.size() == 0) {
-            return;
-        }
-        overwrite(this->address, this->original_bytes.data(), this->original_bytes.size());
-        this->original_bytes.clear();
-    }
-
-    namespace Chimera {
     static const SigByte bullet_magnetism_pattern[] = {
-        0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, -1, -1
+        0xDC, 0xC8,                 // fmul st,st(0)  -- fin del mul para Z
+        0xDE, 0xC1,                 // faddp st(1),st -- suma dist_sq
+        0xD9, 0x05,                 // fld dword ptr [const]  -- load _DAT_00612254
+        0x61, 0x22, 0x61, 0x06,     // address de la const (ajusta si varia: 0x612261 en algunos dumps)
+        0xDF, 0xE9,                 // fucomip st,st(1)
+        0xDD, 0xD8,                 // fstp st(1)
+        0x72, 0x1A                  // jb 0x1A  -- ESTE JUMP ES EL QUE SE NOPea (8 bytes desde aquí)
     };
-
     Signature bullet_magnetism_sig(
-        "bullet_magnetism_sig",                         // nombre interno
-        "Bullet magnetism fix",                         // descripción/feature
-        bullet_magnetism_pattern,                       // puntero al array de bytes
-        sizeof(bullet_magnetism_pattern) / sizeof(SigByte), // longitud del patrón
-        1                                               // número de coincidencia
+        "bullet_magnetism_sig",
+        "Bullet magnetism fix",
+        bullet_magnetism_pattern,
+        sizeof(bullet_magnetism_pattern) / sizeof(SigByte),
+        1  // 1 coincidencia
     );
 }
-
     // Get the bytes to the instruction(s) at the given address. I'll modify this as more types of instructions are needed.
     void get_instructions(const std::byte *at_start, std::vector<std::byte> &bytes, std::vector<std::uintptr_t> &offsets, std::size_t minimum_size = 1) {
         offsets.clear();
