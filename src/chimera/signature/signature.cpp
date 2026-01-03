@@ -7,9 +7,15 @@
 #include "hook.hpp"
 
 namespace Chimera {
-    // Patrón de bytes para localizar la rutina de magnetismo de balas.
-    // ⚠️ IMPORTANTE: Estos son solo placeholders. Debes reemplazarlos con los bytes reales
-    // extraídos de haloce.exe 1.10 usando IDA/Ghidra/x64dbg.
+    void Hook::rollback() noexcept {
+        if(this->original_bytes.size() == 0) {
+            return;
+        }
+        overwrite(this->address, this->original_bytes.data(), this->original_bytes.size());
+        this->original_bytes.clear();
+    }
+
+    namespace Chimera {
     static const SigByte bullet_magnetism_pattern[] = {
         0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, -1, -1
     };
